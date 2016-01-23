@@ -1,0 +1,129 @@
+.container {
+  width: 100%;
+  font-family: 'Hind', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header-wrapper {
+  width: 100%;
+  background-color: #659fcc;
+  color: #cbe8ff;
+  margin: 0;
+  text-align: center;
+  height: 180px;
+}
+
+.header-wrapper h1 {
+  margin: 0;
+  line-height: 180px;
+  font-size: 3em;
+  font-weight: 700;
+}
+
+.input-container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #3f637f;
+  margin-top: 70px;
+  height: 270px;
+  font-weight: 500;
+}
+
+.input-container input {
+  border: 0;
+  width: 49%;
+  margin: 1px;
+  height: 90%;
+  text-align: center;
+  line-height: 2.5em;
+  font-size: 3.5em;
+  color: #3f637f;
+}
+
+.input-container input:focus {
+  outline: 0;
+  outline-offset: none;
+}
+
+.output-container {
+  margin-top: 70px;
+  margin-left: auto;
+  margin-right:auto;
+  text-align: center;
+}
+
+.output-container .conditions-1,.conditions-2 {
+  margin-left: auto;
+  margin-right: auto;
+  height: 300px;
+  width: 600px;  
+  border: 3px solid #3f637f;
+  font-size: 2.75em;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;  
+}
+
+.output-container .conditions-1 {
+  border-top-left-radius: 300px;
+  border-top-right-radius: 300px;
+  background-color: #cbe8ff;
+  color: #3f637f;
+}
+
+.output-container .conditions-2 {
+  border-bottom-left-radius: 300px;
+  border-bottom-right-radius: 300px;
+  background-color: #659fcc;
+  color: #cbe8ff;
+}
+
+.output-container img {
+  width: 20%;
+}
+
+.output-container p {
+  margin: 10px;
+}
+
+.output-container .difference-container {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 2.5em;
+  font-weight: 400;
+}
+
+.hidden {
+  display: none;
+}
+
+.attribution {
+  background-color: black;
+  width: 100%;
+}
+
+@media only screen and (min-width: 480px) {
+  .header-wrapper {
+    height: 135px;
+  }
+
+  .header-wrapper h1 {
+    line-height: 135px;
+  }
+
+  .input-container {
+    height: 120px;
+  }
+
+  .input-container input {
+    line-height: 120px;
+  }
+}
