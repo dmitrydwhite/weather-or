@@ -1,45 +1,78 @@
-.container {
-  width: 100%;
-  font-family: 'Hind', Arial, sans-serif;
+body {
   margin: 0;
   padding: 0;
 }
 
+.container {
+  background-color: white;
+  width: 100vw;
+  font-family: Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: white;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;  
+}
+
+.dark-text {
+  color: #157e96;
+}
+
+.small-f {
+  font-size: x-small;
+  vertical-align: middle;
+}
+
 .header-wrapper {
   width: 100%;
-  background-color: #659fcc;
-  color: #cbe8ff;
+  background-color: #1ca8c9;
+  background: -webkit-linear-gradient(#1ca8c9, #64cbe3); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#1ca8c9, #64cbe3); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#1ca8c9, #64cbe3); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#1ca8c9, #64cbe3); /* Standard syntax */  
   margin: 0;
   text-align: center;
-  height: 180px;
+  height: 90px;
 }
 
 .header-wrapper h1 {
   margin: 0;
-  line-height: 180px;
-  font-size: 3em;
-  font-weight: 700;
+  line-height: 90px;
+  font-size: 2.75em;
+  font-weight: 300;
 }
 
 .input-container {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid #3f637f;
-  margin-top: 70px;
-  height: 270px;
+  margin-top: 35px;
   font-weight: 500;
 }
 
 .input-container input {
-  border: 0;
-  width: 49%;
+  border: none;
+  width: 45%;
   margin: 1px;
-  height: 90%;
+  height: 44px;
   text-align: center;
-  line-height: 2.5em;
-  font-size: 3.5em;
-  color: #3f637f;
+  line-height: 44px;
+  font-size: 1.75em;
+  color: white;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+
+.input-container input.location-1 {
+  background-color: #64cbe3;
+}
+
+.input-container input.location-2 {
+  background-color: #1ca8c9;
 }
 
 .input-container input:focus {
@@ -47,83 +80,152 @@
   outline-offset: none;
 }
 
+.clear-button {
+  float: right;
+  margin-right: 35px;
+  margin-top: 10px;
+  padding: 5px;
+  height: 50px;
+  border-radius: 50%;
+  line-height: 50px;
+  width: 50px;
+  text-align: center;
+  font-size: small;
+  background: #c93d31; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#D27A72, #c93d31); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#D27A72, #c93d31); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#D27A72, #c93d31); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#D27A72, #c93d31); /* Standard syntax */
+}
+
 .output-container {
-  margin-top: 70px;
+  margin-top: 35px;
   margin-left: auto;
   margin-right:auto;
   text-align: center;
 }
 
 .output-container .conditions-1,.conditions-2 {
+  position: relative;
   margin-left: auto;
   margin-right: auto;
-  height: 300px;
-  width: 600px;  
-  border: 3px solid #3f637f;
-  font-size: 2.75em;
+  height: 125px;
+  width: 250px;  
+  font-size: 1em;
 
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;  
 }
 
+.local-temp,.city-name {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.img-container, .local-temp {
+  display: inline;
+}
+
+.local-temp {
+  font-size: 2.5em;
+}
+
+.conditions-1 > .city-name {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+.conditions-1 > .conditions-line {
+  position: absolute;
+  bottom: 34px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+.conditions-2 > .city-name {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+.conditions-2 > .conditions-line {
+  position: absolute;
+  top: 24px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+
 .output-container .conditions-1 {
-  border-top-left-radius: 300px;
-  border-top-right-radius: 300px;
-  background-color: #cbe8ff;
-  color: #3f637f;
+  border-top-left-radius: 125px;
+  border-top-right-radius: 125px;
+  background-color: #64cbe3;
+  background: -webkit-linear-gradient(#9ee7ff, #64cbe3); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#9ee7ff, #64cbe3); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#9ee7ff, #64cbe3); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#9ee7ff, #64cbe3); /* Standard syntax */
+  vertical-align: bottom;
 }
 
 .output-container .conditions-2 {
-  border-bottom-left-radius: 300px;
-  border-bottom-right-radius: 300px;
-  background-color: #659fcc;
-  color: #cbe8ff;
+  border-bottom-left-radius: 125px;
+  border-bottom-right-radius: 125px;
+  background-color: #1ca8c9;
+  background: -webkit-linear-gradient(#1ca8c9, #11687d); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#1ca8c9, #11687d); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#1ca8c9, #11687d); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#1ca8c9, #11687d); /* Standard syntax */  
 }
 
-.output-container img {
-  width: 20%;
+.difference-container.hidden {
+  height: 1px;
+  margin: 0;
 }
 
-.output-container p {
-  margin: 10px;
+.larger-deg {
+  font-size: 1.25em;
+}
+
+.narrow-deg {
+  font-weight: 100;
+}
+
+.difference-container .difference-msg {
+  margin: 0;
+  margin-top: 9px;
+  margin-bottom: 9px;
 }
 
 .output-container .difference-container {
-  width: 700px;
+  width: 250px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 5%;
   padding-right: 5%;
   padding-top: 0;
   padding-bottom: 0;
-  font-size: 2.5em;
+  font-size: 1em;
   font-weight: 400;
 }
 
-.hidden {
-  display: none;
-}
-
 .attribution {
-  background-color: black;
+  margin-top: 30px;
   width: 100%;
+  padding-left: 9px;
+  padding-right: 9px;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
 }
 
-@media only screen and (min-width: 480px) {
-  .header-wrapper {
-    height: 135px;
-  }
-
-  .header-wrapper h1 {
-    line-height: 135px;
-  }
-
-  .input-container {
-    height: 120px;
-  }
-
-  .input-container input {
-    line-height: 120px;
-  }
+.attribution > img {
+  width: 90%;
 }

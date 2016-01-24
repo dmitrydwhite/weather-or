@@ -1,3 +1,6 @@
+// TODO: Make "clear" button active
+// TODO: Reduce font-size when input characters are > 9
+
 
 var WUAPI = require('./weather-underground-api.js');
 var roundto = require('round-to');
@@ -72,8 +75,8 @@ function App () {
     populateTemplate: function (data) {
       var $outputCont = data.$output;
 
-      $outputCont.find('p.city-name').html(data.placeName);
-      $outputCont.find('p.local-temp').html(data.tempString);
+      $outputCont.find('.city-name').html(data.placeName);
+      $outputCont.find('.local-temp').html(this.markupTemperature(data.tempString));
       $outputCont.find('.img-container')
         .empty()
         .append($('<img>', {
@@ -85,23 +88,24 @@ function App () {
       }
     },
 
-    populateComparison: function (warmer, colder, difference) {
-      var diffString, sameString;
-      var diffStringBuilder = ['%s', 'is', '%d', 'degrees warmer than', '%s'];
-      var sameStringBuilder = ['%s', 'and', '%s', 'are reporting the same temperature'];
+    markupTemperature: function (temperatureString) {
+      var markupFormat = '<span class="narrow-deg">&deg;</span><span class="small-f">F</span>';
+      return temperatureString + markupFormat;
+    },
+
+    populateComparison: function (difference, topIsWarmer) {
+      var comparisonString;
+      var diffString = 'is <span class="larger-deg">%d&deg;</span>';
+      var topWarmer = ' warmer than';
+      var topCooler = ' cooler than';
+      var sameString = 'is the same temperature as';
 
       if (difference) {
-        diffStringBuilder[0] = warmer.placeName;
-        diffStringBuilder[2] = difference;
-        diffStringBuilder[4] = colder.placeName;
-        diffString = diffStringBuilder.join(' ');
+        comparisonString = topIsWarmer ? topWarmer : topCooler;
+        diffString = diffString.replace('%d', difference);
 
-        this.$difference.html(diffString);
+        this.$difference.html(diffString + comparisonString);
       } else {
-        sameStringBuilder[0] = warmer.placeName;
-        sameStringBuilder[2] = colder.placeName;
-        sameString = sameStringBuilder.join(' ');
-
         this.$difference.html(sameString);
       }
 
@@ -109,15 +113,11 @@ function App () {
     },
 
     compareTwoLocations: function () {
-      var warmerLocation, coolerLocation;
       var diff = roundto(this.upperData.tempVal - this.lowerData.tempVal, 1);
       var abs = Math.abs(diff);
+      var topIsWarmer = diff > 0;
 
-      if (diff >= 0) {
-        this.populateComparison(this.upperData, this.lowerData, abs);
-      } else {
-        this.populateComparison(this.lowerData, this.upperData, abs);
-      }
+      this.populateComparison(abs, topIsWarmer);
     }
   };
 }

@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Weather / Or</title>
-  <link href='https://fonts.googleapis.com/css?family=Hind:500,400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="./styles/astyle.css">
+  <title>weather/or</title>
+  <link rel="stylesheet" href="./styles/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <div class="container">
     <div class="header-wrapper">
-      <h1>Weather/Or</h1>
+      <h1>weather / or</h1>
     </div>
 
     <div class="input-container">
       <input type="text" class="location-1 js-upper" />
+      <span class="dark-text">or</span>
       <input type="text" class="location-2 js-lower" />
     </div>
 
+    <div class="clear-button">CLEAR</div>
+
     <div class="output-container">
       <div class="conditions-1 js-upper">
-        <p class="local-temp"></p>
-        <div class="img-container"></div>
+        <div class="conditions-line">
+          <div class="img-container"></div>
+          <div class="local-temp"></div>
+        </div>
         <p class="city-name"></p>
       </div>
 
-      <div class="difference-container hidden">
+      <div class="difference-container dark-text hidden">
         <p class="difference-msg"></p>
       </div>
 
       <div class="conditions-2 js-lower">
         <p class="city-name"></p>
-        <div class="img-container"></div>
-        <p class="local-temp"></p>      
+        <div class="conditions-line">
+          <div class="local-temp"></div>
+          <div class="img-container"></div>
+        </div>
       </div>
     </div>
 
@@ -40,7 +46,7 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script type="text/javascript" src="./vendor/jquery/jQuery_2_2_0.js"></script>
   <script type="text/javascript" src="./dist/weatherOr.js"></script>
 </body>
 </html>

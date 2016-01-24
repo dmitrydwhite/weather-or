@@ -8,8 +8,21 @@ module.exports = function wapi () {
         Def.resolve(this.conform(response));
       }.bind(this))
       .fail(function () {
-        Def.reject();
+        this.stubRequest();
       });
+
+    return Def;
+  };
+
+  this.stubRequest = function (reqObj) {
+    var Def = $.Deferred();
+
+    Def.resolve({
+      placeName: 'SALEM, OR',
+      tempString: '47.2 F',
+      tempVal: 47.2,
+      iconUrl: 'http://icons.wxug.com/i/c/i/nt_clear.gif'
+    });
 
     return Def;
   };
@@ -23,8 +36,8 @@ module.exports = function wapi () {
       if (responseObj.current_observation) {
         var obsv = responseObj.current_observation;
 
-        ret.placeName = obsv.display_location.full;
-        ret.tempString = obsv.temperature_string.split('(')[0].trim();
+        ret.placeName = obsv.display_location.full.toUpperCase();
+        ret.tempString = obsv.temp_f.toString();
         ret.tempVal = obsv.temp_f;
         ret.iconUrl = this.buildIconUrl(obsv.icon, obsv.icon_url);
       }
@@ -34,7 +47,7 @@ module.exports = function wapi () {
   };
 
   this.buildUrl = function (searchString) {
-    var firstPart = 'http://api.wunderground.com/api/625172310aff38a6/conditions/q/';
+    var firstPart = 'http://api.wunderground.com/api/8c4c6c8bebd341a5/conditions/q/';
     var lastPart = '.json';
 
     return firstPart + searchString + lastPart;
