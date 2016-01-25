@@ -1,5 +1,27 @@
 module.exports = function wapi () {
 
+  this.errorType = {
+    multipleResults: function (exampleObj) {
+      var descriptionString = '';
+      var searchTerm = exampleObj.name || exampleObj.city || '';
+      var searchLocale = exampleObj.state || exampleObj.country || '';
+      var fillerText = [];
+      var verboseSearch;
+
+      if (!searchTerm || !searchLocale) {
+        fillerText = ['Portland, OR', 'Portland'];
+      } else {
+        verboseSearch = searchTerm + ', ' + searchLocale;
+        fillerText = [verboseSearch, searchTerm];
+      }
+
+      descriptionString = 'Try a more descriptive search term, e.g. "' + verboseSearch + 
+        '" instead of "' + searchTerm + '".';
+
+      return {description: descriptionString};
+    }
+  };
+
   this.request = function (reqObj) {
     var Def = $.Deferred();
     var urlString = this.buildUrl(reqObj.place);
@@ -31,8 +53,11 @@ module.exports = function wapi () {
     var ret = {};
 
     if (responseObj.response.error) {
-      console.log('you suck');
+      ret.error = responseObj.response.error;
     } else {
+      if (responseObj.response.results && responseObj.response.results.length > 1) {
+        ret.error = this.errorType.multipleResults(responseObj.response.results[0]);
+      }
       if (responseObj.current_observation) {
         var obsv = responseObj.current_observation;
 

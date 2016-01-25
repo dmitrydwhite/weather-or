@@ -76,6 +76,9 @@ function App () {
       this.$differenceCont = $('.container').find('.difference-container');
       this.$difference = $('.container').find('.difference-msg');
       this.$clearButton = $('.container').find('.clear-button');
+
+      this.$errorContainer = $('.container').find('.error-container');
+      this.$errorArrow = $('.container').find('.error-indicator');
     },
 
     /* Initialize the listeners on the selectors */
@@ -95,6 +98,7 @@ function App () {
       var updateObject = $target.hasClass('js-upper') ? this.upperData : this.lowerData;
 
       updateObject.place = location;
+      updateObject.error = null;
 
       this.retrieveConditionsData(updateObject)
         .done($.proxy(this.populateTemplate, this))
@@ -106,7 +110,8 @@ function App () {
         placeName: '',
         tempString: '',
         tempVal: 0,
-        iconUrl: ''
+        iconUrl: '',
+        error: {}
       };
 
       $.extend(this.upperData, blankObj);
@@ -116,6 +121,7 @@ function App () {
 
       this.clearTemplate(this.upperData, this.lowerData);
       this.clearComparison();
+      this.clearErrors();
     },
 
     /**
@@ -139,24 +145,29 @@ function App () {
      * @param  {Object}  data  Formatted object received from weather API
      */
     populateTemplate: function (data) {
-      var $outputCont = data.$output;
+      if (data.error) {
+        this.handleError(data);
+      } else {
+        this.clearErrors();
+        var $outputCont = data.$output;
 
-      // Check to see if this new placeName is the same as the existing placeName
-      this.specificPlaceNameNeeded = this.upperData.placeName === this.lowerData.placeName &&
-        this.upperData.specificPlace !== this.lowerData.specificPlace;
+        // Check to see if this new placeName is the same as the existing placeName
+        this.specificPlaceNameNeeded = this.upperData.placeName === this.lowerData.placeName &&
+          this.upperData.specificPlace !== this.lowerData.specificPlace;
 
-      $outputCont.find('.city-name').html(data.placeName);
-      $outputCont.find('.local-temp').html(this.markupTemperature(data.tempString));
-      $outputCont.find('.img-container')
-        .empty()
-        .append($('<img>', {
-          src: data.iconUrl
-        }));
+        $outputCont.find('.city-name').html(data.placeName);
+        $outputCont.find('.local-temp').html(this.markupTemperature(data.tempString));
+        $outputCont.find('.img-container')
+          .empty()
+          .append($('<img>', {
+            src: data.iconUrl
+          }));
 
-      this.updatePlaceNames(this.upperData, this.lowerData, this.specificPlaceNameNeeded);
+        this.updatePlaceNames(this.upperData, this.lowerData, this.specificPlaceNameNeeded);
 
-      if (this.upperData.tempVal && this.lowerData.tempVal) {
-        this.compareTwoLocations();
+        if (this.upperData.tempVal && this.lowerData.tempVal) {
+          this.compareTwoLocations();
+        }
       }
     },
 
@@ -215,9 +226,28 @@ function App () {
       this.$differenceCont.removeClass('hidden');
     },
 
+    handleError: function (error) {
+      if (error && error.error) {
+        var indicatorClass = error.$input.hasClass('js-upper') ? 'upper' : 'lower';
+        this.$errorContainer.html(error.error.description).removeClass('hidden');
+        this.$errorArrow.removeClass('upper lower').addClass(indicatorClass).removeClass('hidden');
+        this.clearTemplate(error);
+        this.clearComparison();
+      } else {
+        this.clearErrors();
+      }
+    },
+
+    clearErrors: function () {
+      this.$errorContainer.html('').addClass('hidden');
+      this.$errorArrow.removeClass('upper lower').addClass('hidden');
+    },
+
     manageInputEntry: function (evt) {
       var $thisInput = $(evt.target);
       var entry = $thisInput.val();
+
+      if (entry === '') this.handleError(entry);
 
       if (entry.length > 9) {
         $thisInput.addClass('smaller-input-text');
@@ -243,9 +273,10 @@ function App () {
 
 // TODO: Reduce font-size when input characters are > 16
 // DONE: Add specificity when placeName is equal
+// TODO: Style Error Popup
 // TODO: Handle Bad Response Error
-// TODO: Handle Multipe Results Error
-// TODO: Handle Error from Service
+// DONE: Handle Multipe Results Error
+// DONE: Handle Error from Service
 // TODO: Style for Desktop
 // TODO: Use a good preprocesser for CSS
 // TODO: Unit Tests!
@@ -253,6 +284,28 @@ window.weather0r = new App();
 weather0r.init();
 },{"./weather-underground-api.js":6,"round-to":4}],6:[function(require,module,exports){
 module.exports = function wapi () {
+
+  this.errorType = {
+    multipleResults: function (exampleObj) {
+      var descriptionString = '';
+      var searchTerm = exampleObj.name || exampleObj.city || '';
+      var searchLocale = exampleObj.state || exampleObj.country || '';
+      var fillerText = [];
+      var verboseSearch;
+
+      if (!searchTerm || !searchLocale) {
+        fillerText = ['Portland, OR', 'Portland'];
+      } else {
+        verboseSearch = searchTerm + ', ' + searchLocale;
+        fillerText = [verboseSearch, searchTerm];
+      }
+
+      descriptionString = 'Try a more descriptive search term, e.g. "' + verboseSearch + 
+        '" instead of "' + searchTerm + '".';
+
+      return {description: descriptionString};
+    }
+  };
 
   this.request = function (reqObj) {
     var Def = $.Deferred();
@@ -285,8 +338,11 @@ module.exports = function wapi () {
     var ret = {};
 
     if (responseObj.response.error) {
-      console.log('you suck');
+      ret.error = responseObj.response.error;
     } else {
+      if (responseObj.response.results && responseObj.response.results.length > 1) {
+        ret.error = this.errorType.multipleResults(responseObj.response.results[0]);
+      }
       if (responseObj.current_observation) {
         var obsv = responseObj.current_observation;
 
