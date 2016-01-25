@@ -54,6 +54,9 @@ function App () {
     upperData: {},
     lowerData: {},
 
+    /* This is a Class Property that tells the App if it needs to add specificity to PlaceName */
+    specificPlaceNameNeeded: false,
+
     /* Initialize this! */
     init: function () {
       this.initSelectors();
@@ -138,6 +141,10 @@ function App () {
     populateTemplate: function (data) {
       var $outputCont = data.$output;
 
+      // Check to see if this new placeName is the same as the existing placeName
+      this.specificPlaceNameNeeded = this.upperData.placeName === this.lowerData.placeName &&
+        this.upperData.specificPlace !== this.lowerData.specificPlace;
+
       $outputCont.find('.city-name').html(data.placeName);
       $outputCont.find('.local-temp').html(this.markupTemperature(data.tempString));
       $outputCont.find('.img-container')
@@ -146,12 +153,26 @@ function App () {
           src: data.iconUrl
         }));
 
+      this.updatePlaceNames(this.upperData, this.lowerData, this.specificPlaceNameNeeded);
+
       if (this.upperData.tempVal && this.lowerData.tempVal) {
         this.compareTwoLocations();
       }
     },
 
-    clearTemplate: function () {
+    updatePlaceNames: function (args) {
+      var addSpecificity = Array.prototype.pop.call(arguments, -1);
+      var outputObj;
+      var propToAdd = addSpecificity ? 'specificPlace' : 'placeName';
+
+      for (var i=0; i < arguments.length; i++) {
+        outputObj = arguments[i];
+        outputObj.$output.find('.city-name').html(outputObj[propToAdd]);
+        outputObj.isSpecific = addSpecificity;
+      }
+    },
+
+    clearTemplate: function (args) {
       var $outputCont;
 
       for (var i=0; i < arguments.length; i++) {
@@ -166,7 +187,13 @@ function App () {
 
     markupTemperature: function (temperatureString) {
       var markupFormat = '<span class="narrow-deg">&deg;</span><span class="small-f">F</span>';
-      return temperatureString + markupFormat;
+      var formattedString = '';
+
+      if (temperatureString) {
+        formattedString = temperatureString + markupFormat;
+      }
+
+      return formattedString;
     },
 
     populateComparison: function (difference, topIsWarmer) {
@@ -215,11 +242,13 @@ function App () {
 }
 
 // TODO: Reduce font-size when input characters are > 16
-// TODO: Add specificity when placeName is equal
+// DONE: Add specificity when placeName is equal
 // TODO: Handle Bad Response Error
 // TODO: Handle Multipe Results Error
 // TODO: Handle Error from Service
 // TODO: Style for Desktop
+// TODO: Use a good preprocesser for CSS
+// TODO: Unit Tests!
 window.weather0r = new App();
 weather0r.init();
 },{"./weather-underground-api.js":6,"round-to":4}],6:[function(require,module,exports){
@@ -262,7 +291,7 @@ module.exports = function wapi () {
         var obsv = responseObj.current_observation;
 
         ret.placeName = obsv.display_location.full.toUpperCase();
-        ret.specificPlace = obsv.observation_location.full.split(',')[0].toUpperCase().trim();
+        ret.specificPlace = obsv.observation_location.full.split(',')[0].toUpperCase().trim() + ', ' + ret.placeName;
         ret.tempString = obsv.temp_f.toString();
         ret.tempVal = obsv.temp_f;
         ret.iconUrl = this.buildIconUrl(obsv.icon, obsv.icon_url);

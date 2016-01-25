@@ -37,7 +37,7 @@ module.exports = function wapi () {
         var obsv = responseObj.current_observation;
 
         ret.placeName = obsv.display_location.full.toUpperCase();
-        ret.specificPlace = obsv.observation_location.full.split(',')[0].toUpperCase().trim();
+        ret.specificPlace = obsv.observation_location.full.split(',')[0].toUpperCase().trim() + ', ' + ret.placeName;
         ret.tempString = obsv.temp_f.toString();
         ret.tempVal = obsv.temp_f;
         ret.iconUrl = this.buildIconUrl(obsv.icon, obsv.icon_url);

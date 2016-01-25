@@ -153,6 +153,15 @@ body {
   text-align: center;
 }
 
+.city-name {
+  padding-left: 2px;
+  padding-right: 2px;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+
 .img-container, .local-temp {
   display: inline;
 }
@@ -170,7 +179,7 @@ body {
 
 .conditions-1 > .conditions-line {
   position: absolute;
-  bottom: 34px;
+  bottom: 39px;
   left: 0px;
   width: 100%;
   text-align: center;
@@ -185,7 +194,7 @@ body {
 
 .conditions-2 > .conditions-line {
   position: absolute;
-  top: 24px;
+  top: 29px;
   left: 0px;
   width: 100%;
   text-align: center;
