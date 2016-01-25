@@ -45,10 +45,6 @@ fn.up = round.bind(null, 'ceil');
 fn.down = round.bind(null, 'floor');
 
 },{"number-is-integer":2}],5:[function(require,module,exports){
-// TODO: Make "clear" button active
-// TODO: Reduce font-size when input characters are > 9
-
-
 var WUAPI = require('./weather-underground-api.js');
 var roundto = require('round-to');
 
@@ -69,18 +65,21 @@ function App () {
     initSelectors: function () {
       this.upperData.$input = $('.input-container').find('input.js-upper');
       this.lowerData.$input = $('.input-container').find('input.js-lower');
-      allInputs = this.upperData.$input.add(this.lowerData.$input);
+      this.allInputs = this.upperData.$input.add(this.lowerData.$input);
 
       this.upperData.$output = $('.output-container').find('div.js-upper');
       this.lowerData.$output = $('.output-container').find('div.js-lower');
 
       this.$differenceCont = $('.container').find('.difference-container');
       this.$difference = $('.container').find('.difference-msg');
+      this.$clearButton = $('.container').find('.clear-button');
     },
 
     /* Initialize the listeners on the selectors */
     initListeners: function () {
-      allInputs.on('change', $.proxy(this.handleInputChange, this));
+      this.allInputs.on('change', $.proxy(this.handleInputChange, this));
+      this.allInputs.on('keyup', $.proxy(this.manageInputEntry, this));
+      this.$clearButton.on('click touch', $.proxy(this.clearData, this));
     },  
 
     /**
@@ -97,6 +96,23 @@ function App () {
       this.retrieveConditionsData(updateObject)
         .done($.proxy(this.populateTemplate, this))
         .fail($.proxy(this.conditionsUnavailable, this));
+    },
+
+    clearData: function (evt) {
+      var blankObj = {
+        placeName: '',
+        tempString: '',
+        tempVal: 0,
+        iconUrl: ''
+      };
+
+      $.extend(this.upperData, blankObj);
+      $.extend(this.lowerData, blankObj);
+
+      this.allInputs.val('');
+
+      this.clearTemplate(this.upperData, this.lowerData);
+      this.clearComparison();
     },
 
     /**
@@ -135,6 +151,19 @@ function App () {
       }
     },
 
+    clearTemplate: function () {
+      var $outputCont;
+
+      for (var i=0; i < arguments.length; i++) {
+        $outputCont = arguments[i].$output;
+
+        $outputCont.find('.city-name').html('');
+        $outputCont.find('.local-temp').html('');
+        $outputCont.find('.img-container').empty();
+      }
+
+    },
+
     markupTemperature: function (temperatureString) {
       var markupFormat = '<span class="narrow-deg">&deg;</span><span class="small-f">F</span>';
       return temperatureString + markupFormat;
@@ -159,6 +188,22 @@ function App () {
       this.$differenceCont.removeClass('hidden');
     },
 
+    manageInputEntry: function (evt) {
+      var $thisInput = $(evt.target);
+      var entry = $thisInput.val();
+
+      if (entry.length > 9) {
+        $thisInput.addClass('smaller-input-text');
+      } else {
+        $thisInput.removeClass('smaller-input-text');
+      }
+    },
+
+    clearComparison: function () {
+      this.$difference.html('');
+      this.$differenceCont.addClass('hidden');
+    },
+
     compareTwoLocations: function () {
       var diff = roundto(this.upperData.tempVal - this.lowerData.tempVal, 1);
       var abs = Math.abs(diff);
@@ -169,6 +214,12 @@ function App () {
   };
 }
 
+// TODO: Reduce font-size when input characters are > 16
+// TODO: Add specificity when placeName is equal
+// TODO: Handle Bad Response Error
+// TODO: Handle Multipe Results Error
+// TODO: Handle Error from Service
+// TODO: Style for Desktop
 window.weather0r = new App();
 weather0r.init();
 },{"./weather-underground-api.js":6,"round-to":4}],6:[function(require,module,exports){
@@ -211,6 +262,7 @@ module.exports = function wapi () {
         var obsv = responseObj.current_observation;
 
         ret.placeName = obsv.display_location.full.toUpperCase();
+        ret.specificPlace = obsv.observation_location.full.split(',')[0].toUpperCase().trim();
         ret.tempString = obsv.temp_f.toString();
         ret.tempVal = obsv.temp_f;
         ret.iconUrl = this.buildIconUrl(obsv.icon, obsv.icon_url);
