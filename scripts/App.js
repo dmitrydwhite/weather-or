@@ -231,7 +231,7 @@ function App () {
 // DONE: Handle Multipe Results Error
 // DONE: Handle Error from Service
 // TODO: Style for Desktop
-// TODO: Use a good preprocesser for CSS
+// DONE: Use a good preprocesser for CSS
 // TODO: Unit Tests!
 window.weather0r = new App();
 weather0r.init();

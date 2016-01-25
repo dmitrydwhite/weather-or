@@ -1,0 +1,289 @@
+/* Color Schemes */
+$dark-text: #157e96;
+$dark-bg: #1ca8c9;
+$xdark-bg: #11687d;
+$lite-bg: #64cbe3;
+$xlite-bg: #9ee7ff;
+$clear-btn-top: #d27a72;
+$clear-btn-bottom: #c93d31;
+
+/* Mixins */
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;   
+}
+
+@mixin gradiate($start, $finish) {
+  background-color: $start;
+  background: -webkit-linear-gradient($start, $finish); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient($start, $finish); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient($start, $finish); /* For Firefox 3.6 to 15 */
+  background: linear-gradient($start, $finish); /* Standard syntax */    
+}
+
+@mixin condition-base {
+  @include border-box;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  height: 125px;
+  width: 250px;  
+  font-size: 1rem;  
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  @include border-box;
+  background-color: white;
+  width: 100%;
+  font-family: Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: white;
+
+  .dark-text {
+    color: $dark-text;
+  }
+
+  .small-f {
+    font-size: x-small;
+    vertical-aligh: middle;
+  }
+
+  .header-wrapper {
+    @include gradiate($dark-bg, $lite-bg);
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    height: 90px;
+
+    h1 {
+      margin: 0;
+      line-height: 90px;
+      font-size: 2.75rem;
+      font-weight: 300;
+    }
+  }
+
+  .input-container {
+    @include border-box;
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 35px;
+    font-weight: 500;
+    height: 44px;
+
+    input {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      border: none;
+      width: 45%;
+      margin: 1px;
+      height: 44px;
+      text-align: center;
+      line-height: 44px;
+      font-size: 24px;
+      color: white;
+
+      &.smaller-input-text {
+        font-size: 16px;
+        line-height: 44px;
+      }
+
+      &.location-1 {
+        background-color: $lite-bg;
+        left: 0;
+      }
+
+      &.location-2 {
+        background-color: $dark-bg;
+        right: 0;
+      }
+
+      &:focus {
+        outline: 0;
+        outline-offset: 0;
+      }
+    }
+
+    .input-divider {
+      width: 100%;
+      text-align: center;
+      line-height: 44px;      
+    }
+
+    .error-indicator {
+      position: absolute;
+      top: 44px;
+      width: 0px;
+      height: 0px;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid blue;
+
+      &.upper {
+        left: 73px;
+      }
+
+      &.lower {
+        right: 73px;
+      }
+    }
+
+    .error-container {
+      position: absolute;
+      color: black;
+      font-size: .75em;
+      background-color: beige;
+      border: 2px solid blue;
+      left: 0px;
+      top: 54px;
+      padding: 4px;
+      z-index: 20;
+      width: 100%;
+    }
+
+    .error-indicator, .error-container {
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+
+  .clear-button {
+    float: right;
+    margin-right: 35px;
+    margin-top: 10px;
+    padding: 5px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 50px;
+    width: 50px;
+    text-align: center;
+    font-size: small;
+    @include gradiate($clear-btn-top, $clear-btn-bottom);
+  }
+
+  .output-container {
+    margin-top: 35px;
+    margin-left: auto;
+    margin-right:auto;
+    text-align: center;
+
+    .conditions-1, .conditions-2 {
+      @include condition-base;
+
+      .local-temp,.city-name {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .city-name {
+        padding-left: 2px;
+        padding-right: 2px;
+      }
+
+      .img-container, .local-temp {
+        display: inline;
+      }
+
+      .local-temp {
+        font-size: 2.5rem;
+
+        .narrow-deg {
+          font-weight: 100;
+        }
+      } 
+    }
+
+    .conditions-1 {
+      @include gradiate($xlite-bg, $lite-bg);
+      border-top-left-radius: 125px;
+      border-top-right-radius: 125px;
+
+      .city-name {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        text-align: center;        
+      }
+
+      .conditions-line {
+        position: absolute;
+        bottom: 39px;
+        left: 0px;
+        width: 100%;
+        text-align: center;        
+      }
+    }
+
+    .conditions-2 {
+      @include gradiate($dark-bg, $xdark-bg);
+      border-bottom-left-radius: 125px;
+      border-bottom-right-radius: 125px;      
+      .city-name {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .conditions-line {
+        position: absolute;
+        top: 29px;
+        left: 0px;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .difference-container {
+      width: 250px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 5%;
+      padding-right: 5%;
+      padding-top: 0;
+      padding-bottom: 0;
+      font-size: 1rem;
+      font-weight: 400;
+
+      &.hidden {
+        height: 1px;
+        margin: 0;        
+      }
+
+      .difference-msg {
+        margin: 0;
+        margin-top: 9px;
+        margin-bottom: 9px;
+
+        .larger-deg {
+          font-size: 1.25rem;
+        }      
+      }
+    }
+  }
+
+  .attribution {
+    @include border-box;
+    margin-top: 30px;
+    width: 100%;
+    padding-left: 9px;
+    padding-right: 9px;
+
+    img {
+      width: 90%;
+    }
+  }
+}
