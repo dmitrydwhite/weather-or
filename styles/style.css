@@ -38,6 +38,10 @@ body {
       line-height: 90px;
       font-size: 2.75rem;
       font-weight: 300; }
+  .container .instructable {
+    color: #157e96;
+    width: 100%;
+    text-align: center; }
   .container .input-container {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

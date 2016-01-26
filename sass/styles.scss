@@ -85,6 +85,12 @@ body {
     }
   }
 
+  .instructable {
+    color: $dark-text;
+    width: 100%;
+    text-align: center;
+  }
+
   .input-container {
     @include border-box;
     position: relative;
