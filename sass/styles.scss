@@ -8,7 +8,7 @@ $clear-btn-top: #d27a72;
 $clear-btn-bottom: #c93d31;
 
 /* Break Point */
-$phone-breakpoint: '(min-width: 480px)';
+$phone-breakpoint: '(min-width: 720px)';
 
 /* Size Values */
 $small-diam: 250px;
@@ -212,10 +212,10 @@ body {
     float: right;
     margin-right: 35px;
     @media #{$phone-breakpoint} {
-      right: 20%;
-      float: none;
-      position: absolute;
-      top: 99px;
+      margin-right: 20%;
+      // float: none;
+      // position: absolute;
+      // top: 99px;
     }
     margin-top: 20px;
     padding: 5px;
