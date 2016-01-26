@@ -18,7 +18,7 @@ body {
     color: #157e96; }
   .container .small-f {
     font-size: x-small;
-    vertical-aligh: middle; }
+    vertical-align: middle; }
   .container .header-wrapper {
     background-color: #1ca8c9;
     background: -webkit-linear-gradient(#1ca8c9, #64cbe3);
@@ -50,6 +50,9 @@ body {
     font-weight: 500;
     height: 44px; }
     .container .input-container input {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
       position: absolute;
       top: 0;
       bottom: 0;
@@ -60,7 +63,23 @@ body {
       text-align: center;
       line-height: 44px;
       font-size: 24px;
-      color: white; }
+      color: white;
+      -webkit-appearance: none;
+      -webkit-border-radius: 0px; }
+      .container .input-container input ::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: #64F8FF; }
+      .container .input-container input ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #64F8FF; }
+      .container .input-container input :-ms-input-placeholder {
+        /* IE 10+ */
+        color: #64F8FF; }
+      .container .input-container input :-moz-placeholder {
+        /* Firefox 18- */
+        color: #64F8FF; }
+      .container .input-container input:placeholder-shown {
+        color: #b1fbff; }
       .container .input-container input.smaller-input-text {
         font-size: 16px;
         line-height: 44px; }
@@ -105,7 +124,7 @@ body {
   .container .clear-button {
     float: right;
     margin-right: 35px;
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 5px;
     height: 50px;
     border-radius: 50%;
@@ -123,7 +142,7 @@ body {
     background: linear-gradient(#d27a72, #c93d31);
     /* Standard syntax */ }
   .container .output-container {
-    margin-top: 35px;
+    margin-top: 45px;
     margin-left: auto;
     margin-right: auto;
     text-align: center; }

@@ -224,14 +224,12 @@ function App () {
   };
 }
 
-// TODO: Reduce font-size when input characters are > 16
-// DONE: Add specificity when placeName is equal
+// TODO: Reduce font-size when input characters are > 16 ?
 // TODO: Style Error Popup
 // TODO: Handle Bad Response Error
-// DONE: Handle Multipe Results Error
-// DONE: Handle Error from Service
 // TODO: Style for Desktop
-// DONE: Use a good preprocesser for CSS
 // TODO: Unit Tests!
+// TODO: Docs!
+// TODO: Integrate GulpJS
 window.weather0r = new App();
 weather0r.init();

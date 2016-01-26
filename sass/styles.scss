@@ -32,6 +32,21 @@ $clear-btn-bottom: #c93d31;
   font-size: 1rem;  
 }
 
+@mixin placeholder-styling {
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #64F8FF;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: #64F8FF;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: #64F8FF;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: #64F8FF;
+  }  
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -52,7 +67,7 @@ body {
 
   .small-f {
     font-size: x-small;
-    vertical-aligh: middle;
+    vertical-align: middle;
   }
 
   .header-wrapper {
@@ -81,6 +96,8 @@ body {
     height: 44px;
 
     input {
+      @include placeholder-styling;
+      @include border-box;
       position: absolute;
       top: 0;
       bottom: 0;
@@ -92,6 +109,12 @@ body {
       line-height: 44px;
       font-size: 24px;
       color: white;
+      -webkit-appearance: none;
+      -webkit-border-radius: 0px;
+
+      &:placeholder-shown {
+        color: #b1fbff;
+      }
 
       &.smaller-input-text {
         font-size: 16px;
@@ -161,7 +184,7 @@ body {
   .clear-button {
     float: right;
     margin-right: 35px;
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 5px;
     height: 50px;
     border-radius: 50%;
@@ -173,7 +196,7 @@ body {
   }
 
   .output-container {
-    margin-top: 35px;
+    margin-top: 45px;
     margin-left: auto;
     margin-right:auto;
     text-align: center;
