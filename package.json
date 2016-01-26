@@ -1,0 +1,35 @@
+{
+  "name": "weather-or",
+  "version": "1.0.0",
+  "description": "weather comparison by location",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dmitrydwhite/weather-or.git"
+  },
+  "keywords": [
+    "weather",
+    "comparison"
+  ],
+  "author": "dmitry d white",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmitrydwhite/weather-or/issues"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "del": "^1.1.1",
+    "gulp": "^3.9.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7",
+    "round-to": "^1.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

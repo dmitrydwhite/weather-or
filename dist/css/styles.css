@@ -1,0 +1,366 @@
+/* Color Schemes */
+/* Break Point */
+/* Size Values */
+/* Mixins */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: white;
+  width: 100%;
+  font-family: Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+.container .dark-text {
+  color: #157e96;
+}
+.container .small-f {
+  font-size: x-small;
+  vertical-align: middle;
+}
+.container .header-wrapper {
+  background-color: #1ca8c9;
+  background: -webkit-linear-gradient(#1ca8c9, #64cbe3);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#1ca8c9, #64cbe3);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#1ca8c9, #64cbe3);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#1ca8c9, #64cbe3);
+  /* Standard syntax */
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  height: 90px;
+}
+.container .header-wrapper h1 {
+  margin: 0;
+  line-height: 90px;
+  font-size: 2.75rem;
+  font-weight: 300;
+}
+.container .instructable {
+  color: #157e96;
+  width: 100%;
+  text-align: center;
+  margin-top: 9px;
+}
+.container .input-container {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  font-weight: 500;
+  height: 44px;
+}
+@media (min-width: 480px) {
+  .container .input-container {
+    width: 45%;
+  }
+}
+.container .input-container input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border: none;
+  width: 45%;
+  margin: 1px;
+  height: 44px;
+  text-align: center;
+  line-height: 44px;
+  font-size: 24px;
+  color: white;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+}
+.container .input-container input ::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #64F8FF;
+}
+.container .input-container input ::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #64F8FF;
+}
+.container .input-container input :-ms-input-placeholder {
+  /* IE 10+ */
+  color: #64F8FF;
+}
+.container .input-container input :-moz-placeholder {
+  /* Firefox 18- */
+  color: #64F8FF;
+}
+.container .input-container input:placeholder-shown {
+  color: #b1fbff;
+}
+.container .input-container input.smaller-input-text {
+  font-size: 16px;
+  line-height: 44px;
+}
+.container .input-container input.location-1 {
+  background-color: #64cbe3;
+  left: 0;
+}
+.container .input-container input.location-2 {
+  background-color: #1ca8c9;
+  right: 0;
+}
+.container .input-container input:focus {
+  outline: 0;
+  outline-offset: 0;
+}
+.container .input-container .input-divider {
+  width: 100%;
+  text-align: center;
+  line-height: 44px;
+}
+.container .input-container .error-indicator {
+  position: absolute;
+  top: 44px;
+  width: 0px;
+  height: 0px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid orange;
+}
+.container .input-container .error-indicator.upper {
+  left: 73px;
+}
+.container .input-container .error-indicator.lower {
+  right: 73px;
+}
+.container .input-container .error-container {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  color: white;
+  font-size: .75em;
+  background-color: orange;
+  left: 0px;
+  top: 54px;
+  padding: 4px;
+  z-index: 20;
+  width: 100%;
+  text-align: center;
+}
+.container .input-container .error-indicator.hidden, .container .input-container .error-container.hidden {
+  display: none;
+}
+.container .clear-button {
+  float: right;
+  margin-right: 35px;
+  margin-top: 20px;
+  padding: 5px;
+  height: 50px;
+  border-radius: 50%;
+  line-height: 50px;
+  width: 50px;
+  text-align: center;
+  font-size: small;
+  background-color: #d27a72;
+  background: -webkit-linear-gradient(#d27a72, #c93d31);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#d27a72, #c93d31);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#d27a72, #c93d31);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#d27a72, #c93d31);
+  /* Standard syntax */
+}
+@media (min-width: 480px) {
+  .container .clear-button {
+    right: 20%;
+    float: none;
+    position: absolute;
+    top: 99px;
+  }
+}
+.container .output-container {
+  margin-top: 45px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.container .output-container .conditions-1, .container .output-container .conditions-2 {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  height: 125px;
+  width: 250px;
+  font-size: 1rem;
+}
+@media (min-width: 480px) {
+  .container .output-container .conditions-1, .container .output-container .conditions-2 {
+    height: 225px;
+    width: 450px;
+  }
+}
+.container .output-container .conditions-1 .local-temp, .container .output-container .conditions-1 .city-name, .container .output-container .conditions-2 .local-temp, .container .output-container .conditions-2 .city-name {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+.container .output-container .conditions-1 .city-name, .container .output-container .conditions-2 .city-name {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+@media (min-width: 480px) {
+  .container .output-container .conditions-1 .city-name, .container .output-container .conditions-2 .city-name {
+    font-size: 1.5em;
+  }
+}
+.container .output-container .conditions-1 .img-container, .container .output-container .conditions-1 .local-temp, .container .output-container .conditions-2 .img-container, .container .output-container .conditions-2 .local-temp {
+  display: inline;
+}
+.container .output-container .conditions-1 .local-temp, .container .output-container .conditions-2 .local-temp {
+  font-size: 2.5rem;
+}
+.container .output-container .conditions-1 .local-temp .narrow-deg, .container .output-container .conditions-2 .local-temp .narrow-deg {
+  font-weight: 100;
+}
+.container .output-container .conditions-1 {
+  background-color: #9ee7ff;
+  background: -webkit-linear-gradient(#9ee7ff, #64cbe3);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#9ee7ff, #64cbe3);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#9ee7ff, #64cbe3);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#9ee7ff, #64cbe3);
+  /* Standard syntax */
+  border-top-left-radius: 125px;
+  border-top-right-radius: 125px;
+}
+@media (min-width: 480px) {
+  .container .output-container .conditions-1 {
+    border-top-left-radius: 225px;
+    border-top-right-radius: 225px;
+  }
+}
+.container .output-container .conditions-1 .city-name {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+}
+.container .output-container .conditions-1 .conditions-line {
+  position: absolute;
+  bottom: 39px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+@media (min-width: 480px) {
+  .container .output-container .conditions-1 .conditions-line {
+    bottom: 77px;
+    font-size: 3em;
+  }
+}
+.container .output-container .conditions-2 {
+  background-color: #1ca8c9;
+  background: -webkit-linear-gradient(#1ca8c9, #11687d);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#1ca8c9, #11687d);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#1ca8c9, #11687d);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#1ca8c9, #11687d);
+  /* Standard syntax */
+  border-bottom-left-radius: 125px;
+  border-bottom-right-radius: 125px;
+}
+@media (min-width: 480px) {
+  .container .output-container .conditions-2 {
+    border-bottom-left-radius: 225px;
+    border-bottom-right-radius: 225px;
+  }
+}
+.container .output-container .conditions-2 .city-name {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  text-align: center;
+}
+.container .output-container .conditions-2 .conditions-line {
+  position: absolute;
+  top: 29px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+@media (min-width: 480px) {
+  .container .output-container .conditions-2 .conditions-line {
+    top: 72px;
+    font-size: 3em;
+  }
+}
+.container .output-container .difference-container {
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.container .output-container .difference-container.hidden {
+  height: 1px;
+  margin: 0;
+}
+.container .output-container .difference-container .difference-msg {
+  margin: 0;
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
+.container .output-container .difference-container .difference-msg .larger-deg {
+  font-size: 1.25rem;
+}
+.container .attribution {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 30px;
+  width: 100%;
+  padding-left: 9px;
+  padding-right: 9px;
+}
+@media (min-width: 480px) {
+  .container .attribution {
+    max-height: 100px;
+  }
+}
+.container .attribution img {
+  width: 90%;
+}
+@media (min-width: 480px) {
+  .container .attribution img {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    display: block;
+    max-width: 600px;
+    max-height: 190px;
+    width: auto;
+    height: auto;
+  }
+}

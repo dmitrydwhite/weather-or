@@ -7,6 +7,16 @@ $xlite-bg: #9ee7ff;
 $clear-btn-top: #d27a72;
 $clear-btn-bottom: #c93d31;
 
+/* Break Point */
+$phone-breakpoint: '(min-width: 480px)';
+
+/* Size Values */
+$small-diam: 250px;
+$small-rad: 125px;
+$larger-diam: 450px;
+$larger-rad: 225px;
+
+
 /* Mixins */
 @mixin border-box {
   -webkit-box-sizing: border-box;
@@ -27,9 +37,14 @@ $clear-btn-bottom: #c93d31;
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  height: 125px;
-  width: 250px;  
+  height: $small-rad;
+  width: $small-diam;  
   font-size: 1rem;  
+
+  @media #{$phone-breakpoint} {
+    height: $larger-rad;
+    width: $larger-diam;
+  }
 }
 
 @mixin placeholder-styling {
@@ -89,15 +104,20 @@ body {
     color: $dark-text;
     width: 100%;
     text-align: center;
+    margin-top: 9px;
   }
 
   .input-container {
+    @media #{$phone-breakpoint} {
+      width: 45%;
+    }
+
     @include border-box;
     position: relative;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 35px;
+    margin-top: 10px;
     font-weight: 500;
     height: 44px;
 
@@ -156,7 +176,7 @@ body {
       height: 0px;
       border-left: 10px solid transparent;
       border-right: 10px solid transparent;
-      border-bottom: 10px solid blue;
+      border-bottom: 10px solid orange;
 
       &.upper {
         left: 73px;
@@ -168,16 +188,17 @@ body {
     }
 
     .error-container {
+      @include border-box;
       position: absolute;
-      color: black;
+      color: white;
       font-size: .75em;
-      background-color: beige;
-      border: 2px solid blue;
+      background-color: orange;
       left: 0px;
       top: 54px;
       padding: 4px;
       z-index: 20;
       width: 100%;
+      text-align: center;
     }
 
     .error-indicator, .error-container {
@@ -190,6 +211,12 @@ body {
   .clear-button {
     float: right;
     margin-right: 35px;
+    @media #{$phone-breakpoint} {
+      right: 20%;
+      float: none;
+      position: absolute;
+      top: 99px;
+    }
     margin-top: 20px;
     padding: 5px;
     height: 50px;
@@ -220,6 +247,9 @@ body {
       .city-name {
         padding-left: 2px;
         padding-right: 2px;
+        @media #{$phone-breakpoint} {
+          font-size: 1.5em;
+        }
       }
 
       .img-container, .local-temp {
@@ -237,8 +267,12 @@ body {
 
     .conditions-1 {
       @include gradiate($xlite-bg, $lite-bg);
-      border-top-left-radius: 125px;
-      border-top-right-radius: 125px;
+      border-top-left-radius: $small-rad;
+      border-top-right-radius: $small-rad;
+      @media #{$phone-breakpoint} {
+        border-top-left-radius: $larger-rad;
+        border-top-right-radius: $larger-rad;
+      }
 
       .city-name {
         position: absolute;
@@ -249,6 +283,10 @@ body {
 
       .conditions-line {
         position: absolute;
+        @media #{$phone-breakpoint} {
+          bottom: 77px;
+          font-size: 3em;
+        }        
         bottom: 39px;
         left: 0px;
         width: 100%;
@@ -258,8 +296,12 @@ body {
 
     .conditions-2 {
       @include gradiate($dark-bg, $xdark-bg);
-      border-bottom-left-radius: 125px;
-      border-bottom-right-radius: 125px;      
+      border-bottom-left-radius: $small-rad;
+      border-bottom-right-radius: $small-rad;
+      @media #{$phone-breakpoint} {
+        border-bottom-left-radius: $larger-rad;
+        border-bottom-right-radius: $larger-rad;
+      }
       .city-name {
         position: absolute;
         top: 0px;
@@ -269,6 +311,11 @@ body {
 
       .conditions-line {
         position: absolute;
+        @media #{$phone-breakpoint} {
+          top: 72px;
+          font-size: 3em;
+        }
+
         top: 29px;
         left: 0px;
         width: 100%;
@@ -277,7 +324,7 @@ body {
     }
 
     .difference-container {
-      width: 250px;
+      width: $small-diam;
       margin-left: auto;
       margin-right: auto;
       padding-left: 5%;
@@ -311,8 +358,23 @@ body {
     padding-left: 9px;
     padding-right: 9px;
 
+    @media #{$phone-breakpoint} {
+      max-height: 100px;
+    }
+
     img {
       width: 90%;
+
+      @media #{$phone-breakpoint} {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        display: block;
+        max-width:600px;
+        max-height:190px;
+        width: auto;
+        height: auto;      
+      }
     }
   }
 }

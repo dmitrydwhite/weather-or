@@ -1,50 +1,3 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
-var numberIsNan = require('number-is-nan');
-
-module.exports = Number.isFinite || function (val) {
-	return !(typeof val !== 'number' || numberIsNan(val) || val === Infinity || val === -Infinity);
-};
-
-},{"number-is-nan":3}],2:[function(require,module,exports){
-'use strict';
-var numberIsFinite = require('is-finite');
-
-module.exports = Number.isInteger || function (x) {
-	return numberIsFinite(x) && Math.floor(x) === x;
-};
-
-},{"is-finite":1}],3:[function(require,module,exports){
-'use strict';
-module.exports = Number.isNaN || function (x) {
-	return x !== x;
-};
-
-},{}],4:[function(require,module,exports){
-'use strict';
-var numberIsInteger = require('number-is-integer');
-
-function round(fn, x, precision) {
-	if (typeof x !== 'number') {
-		throw new TypeError('Expected value to be a number');
-	}
-
-	if (!numberIsInteger(precision)) {
-		throw new TypeError('Expected precision to be an integer');
-	}
-
-	var exponent = precision > 0 ? 'e' : 'e-';
-	var exponentNeg = precision > 0 ? 'e-' : 'e';
-	precision = Math.abs(precision);
-
-	return Number(Math[fn](x + exponent + precision) + exponentNeg + precision);
-}
-
-var fn = module.exports = round.bind(null, 'round');
-fn.up = round.bind(null, 'ceil');
-fn.down = round.bind(null, 'floor');
-
-},{"number-is-integer":2}],5:[function(require,module,exports){
 var WUAPI = require('./weather-underground-api.js');
 var roundto = require('round-to');
 
@@ -102,7 +55,7 @@ function App () {
 
       this.retrieveConditionsData(updateObject)
         .done($.proxy(this.populateTemplate, this))
-        .fail($.proxy(this.conditionsUnavailable, this));
+        .fail($.proxy(this.handleError, this));
     },
 
     clearData: function (evt) {
@@ -135,6 +88,9 @@ function App () {
       this.weatherAPI.request(updateObject)
         .done(function (responseObj) {
           Def.resolve($.extend(updateObject, responseObj));
+        })
+        .fail(function (error) {
+          Def.reject($.extend(updateObject, error));
         });
 
       return Def;
@@ -271,103 +227,9 @@ function App () {
   };
 }
 
-// TODO: Reduce font-size when input characters are > 16
-// DONE: Add specificity when placeName is equal
-// TODO: Style Error Popup
-// TODO: Handle Bad Response Error
-// DONE: Handle Multipe Results Error
-// DONE: Handle Error from Service
-// TODO: Style for Desktop
-// TODO: Use a good preprocesser for CSS
+// TODO: Reduce font-size when input characters are > 16 ?
 // TODO: Unit Tests!
+// TODO: Docs!
+// TODO: Integrate GulpJS
 window.weather0r = new App();
 weather0r.init();
-},{"./weather-underground-api.js":6,"round-to":4}],6:[function(require,module,exports){
-module.exports = function wapi () {
-
-  this.errorType = {
-    multipleResults: function (exampleObj) {
-      var descriptionString = '';
-      var searchTerm = exampleObj.name || exampleObj.city || '';
-      var searchLocale = exampleObj.state || exampleObj.country || '';
-      var fillerText = [];
-      var verboseSearch;
-
-      if (!searchTerm || !searchLocale) {
-        fillerText = ['Portland, OR', 'Portland'];
-      } else {
-        verboseSearch = searchTerm + ', ' + searchLocale;
-        fillerText = [verboseSearch, searchTerm];
-      }
-
-      descriptionString = 'Try a more descriptive search term, e.g. "' + verboseSearch + 
-        '" instead of "' + searchTerm + '".';
-
-      return {description: descriptionString};
-    }
-  };
-
-  this.request = function (reqObj) {
-    var Def = $.Deferred();
-    var urlString = this.buildUrl(reqObj.place);
-    $.ajax(urlString)
-      .done(function (response) {
-        Def.resolve(this.conform(response));
-      }.bind(this))
-      .fail(function () {
-        this.stubRequest();
-      });
-
-    return Def;
-  };
-
-  this.stubRequest = function (reqObj) {
-    var Def = $.Deferred();
-
-    Def.resolve({
-      placeName: 'SALEM, OR',
-      tempString: '47.2 F',
-      tempVal: 47.2,
-      iconUrl: 'http://icons.wxug.com/i/c/i/nt_clear.gif'
-    });
-
-    return Def;
-  };
-
-  this.conform = function (responseObj) {
-    var ret = {};
-
-    if (responseObj.response.error) {
-      ret.error = responseObj.response.error;
-    } else {
-      if (responseObj.response.results && responseObj.response.results.length > 1) {
-        ret.error = this.errorType.multipleResults(responseObj.response.results[0]);
-      }
-      if (responseObj.current_observation) {
-        var obsv = responseObj.current_observation;
-
-        ret.placeName = obsv.display_location.full.toUpperCase();
-        ret.specificPlace = obsv.observation_location.full.split(',')[0].toUpperCase().trim() + ', ' + ret.placeName;
-        ret.tempString = obsv.temp_f.toString();
-        ret.tempVal = obsv.temp_f;
-        ret.iconUrl = this.buildIconUrl(obsv.icon, obsv.icon_url);
-      }
-    }
-
-    return ret;
-  };
-
-  this.buildUrl = function (searchString) {
-    var firstPart = 'http://api.wunderground.com/api/8c4c6c8bebd341a5/conditions/q/';
-    var lastPart = '.json';
-
-    return firstPart + searchString + lastPart;
-  };
-
-  // TODO: This should determine day or night.
-  this.buildIconUrl = function (iconType, iconUrl) {
-    if (iconUrl.indexOf('nt') !== -1) iconType = 'nt_' + iconType;
-    return 'http://icons.wxug.com/i/c/i/' + iconType + '.gif';
-  };
-};
-},{}]},{},[5]);

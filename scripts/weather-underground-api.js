@@ -30,7 +30,8 @@ module.exports = function wapi () {
         Def.resolve(this.conform(response));
       }.bind(this))
       .fail(function () {
-        this.stubRequest();
+        console.log(this);
+        Def.reject({error: {description: 'Sorry, we can\'t seem to download any weather information <br>because the internet won\'t answer its phone.'}});
       });
 
     return Def;
