@@ -200,6 +200,19 @@ function App () {
     },
 
     /**
+     * Performs mathematical comparison between the two existing data object temperature values.
+     * Calls the population method with the difference and a boolean that is true if the upper data
+     * is warmer than the lower.
+     */
+    compareTwoLocations: function () {
+      var diff = roundto(this.upperData.tempVal - this.lowerData.tempVal, 1);
+      var abs = Math.abs(diff).toString();
+      var topIsWarmer = diff > 0;
+
+      this.populateComparison(abs, topIsWarmer);
+    },    
+
+    /**
      * Un-displays the error popup and re-sets it.
      */
     clearErrors: function () {
