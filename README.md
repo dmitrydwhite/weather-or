@@ -1,7 +1,7 @@
 # weather/or
 ##### by Dmitry White
 
-A single-page client-side AJAX app to compare weather in two locations.  Available at [dmitrydwhite.github.io/weather-or](dmitrydwhite.github.io/weather-or).
+A single-page client-side AJAX app to compare weather in two locations.  Available at [dmitrydwhite.github.io/weather-or](http://dmitrydwhite.github.io/weather-or).
 
 ### Dependencies:
 * Weather Underground API
