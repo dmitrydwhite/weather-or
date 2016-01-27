@@ -278,6 +278,3 @@ module.exports = function App () {
     }
   };
 }
-
-// TODO: Unit Tests!
-// TODO: Make a Grunt Build task ?
