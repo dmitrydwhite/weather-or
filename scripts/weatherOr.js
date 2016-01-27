@@ -1,7 +1,8 @@
-var WUAPI = require('./weather-underground-api.js');
-var roundto = require('round-to');
+module.exports = function App () {
 
-function App () {
+  var WUAPI = require('./weather-underground-api.js');
+  var roundto = require('round-to');
+
   return {
     /* These are two containers to store our results in */
     upperData: {},
@@ -53,14 +54,17 @@ function App () {
       updateObject.place = location;
       updateObject.error = null;
 
-      this.retrieveConditionsData(updateObject)
-        .done($.proxy(this.populateTemplate, this))
-        .fail($.proxy(this.handleError, this));
+      if (location) {
+        this.retrieveConditionsData(updateObject)
+          .done($.proxy(this.populateTemplate, this))
+          .fail($.proxy(this.handleError, this));
+        }
     },
 
     /**
      * Listener on both inputs for responding to user interaction.  Clears error, adjusts font size.
      * @param  {jQuery}  evt  jQuery event.
+     * @return {jQuery}       target of the jQuery event 
      */
     manageInputEntry: function (evt) {
       var $thisInput = $(evt.target);
@@ -73,6 +77,8 @@ function App () {
       } else {
         $thisInput.removeClass('smaller-input-text');
       }
+
+      return $thisInput;
     },
 
     /**
@@ -274,7 +280,4 @@ function App () {
 }
 
 // TODO: Unit Tests!
-// TODO: Docs!
 // TODO: Make a Grunt Build task ?
-window.weather0r = new App();
-weather0r.init();

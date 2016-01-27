@@ -111,7 +111,7 @@ module.exports = function wapi () {
    * @return {String}            The constructed url for the Weather Underground icon, using the specified icon set.
    */
   this.buildIconUrl = function (iconType, iconUrl) {
-    iconType = iconUrl.indexOf('nt' === -1) ? iconType : 'nt_' + iconType;
+    iconType = iconUrl.indexOf('nt') === -1 ? iconType : 'nt_' + iconType;
 
     return 'http://icons.wxug.com/i/c/' + this.iconSet + iconType + '.gif';
   };
