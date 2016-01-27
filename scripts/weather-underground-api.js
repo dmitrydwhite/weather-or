@@ -4,7 +4,7 @@ module.exports = function wapi () {
    * API Key 
    * @type {String}
    */
-  this.APIkey = '8c4c6c8bebd341a5';
+  this.APIkey = '625172310aff38a6';
 
   /**
    * String indicating which icon set from Weather Underground to use.
