@@ -8,6 +8,7 @@ var gutil = require('gulp-util');
 var sass = require('gulp-ruby-sass');
 var notify = require('gulp-notify');
 var del = require('del');
+var open = require('gulp-open');
 
 gulp.task('javascript', ['clean'], function () {
   // set up the browserify instance on a task basis
@@ -62,6 +63,14 @@ gulp.task('watch', function () {
   gulp.watch('./test/*.js', ['qunit']);
 });
 
-gulp.task('build', ['javascript', 'styles']);
+gulp.task('build', ['javascript', 'styles'], function () {
+  gulp.src('./index.html')
+  .pipe(open());
+});
 
 gulp.task('default', ['build']);
+
+gulp.task('test', ['qunit'], function () {
+  gulp.src('./test/test.html')
+  .pipe(open());  
+});
