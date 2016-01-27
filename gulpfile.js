@@ -47,7 +47,7 @@ gulp.task('qunit', function () {
     .pipe(buffer())
         .on('error', gutil.log)
     .pipe(gulp.dest('./qunit/'))
-    .pipe(notify({ message: 'QUnit tests passed'}));
+    .pipe(notify({ message: 'QUnit tests built'}));
 });
 
 gulp.task('watch', function () {
