@@ -16,4 +16,4 @@ A single-page client-side AJAX app to compare weather in two locations.  Availab
 * Run `npm install` in the command line
 * `gulp` or `gulp build` to build
 * `gulp watch` will monitor styles, scripts, and tests
-* Tests build with `gulp test`, then open `./test/test.html` in your favorite browser.
+* Tests build with `gulp qunit`, then open `./test/test.html` in your favorite browser.
