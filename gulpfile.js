@@ -12,12 +12,12 @@ var del = require('del');
 gulp.task('javascript', function () {
   // set up the browserify instance on a task basis
   var b = browserify({
-    entries: './scripts/weatherOr.js',
+    entries: './scripts/App.js',
     debug: true
   });
 
   return b.bundle()
-    .pipe(source('./scripts/weatherOr.js'))
+    .pipe(source('./scripts/App.js'))
     .pipe(buffer())
         .pipe(uglify())
         .on('error', gutil.log)
@@ -34,11 +34,28 @@ gulp.task('clean', function () {
   return del(['dist/css', 'dist/scripts']);
 });
 
+gulp.task('qunit', function () {
+  // set up the browserify instance on a task basis
+  var q = browserify({
+    entries: './test/tests.js',
+    debug: true
+  });
+
+  return q.bundle()
+    .pipe(source('./test/tests.js'))
+    .pipe(buffer())
+        .on('error', gutil.log)
+    .pipe(gulp.dest('./qunitest/'));
+});
+
 gulp.task('watch', function () {
 
   // Watch .scss files
   gulp.watch('./sass/*.scss', ['styles']);
 
   // Watch .js files
-  gulp.watch('./scripts/*.js', ['javascript']);  
+  gulp.watch('./scripts/*.js', ['javascript']);
+
+  // Watch qunit tests
+  gulp.watch('./test/*.js', ['qunit']);
 });
