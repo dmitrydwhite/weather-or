@@ -9,7 +9,7 @@ var sass = require('gulp-ruby-sass');
 var notify = require('gulp-notify');
 var del = require('del');
 
-gulp.task('javascript', function () {
+gulp.task('javascript', ['clean'], function () {
   // set up the browserify instance on a task basis
   var b = browserify({
     entries: './scripts/App.js',
@@ -21,13 +21,14 @@ gulp.task('javascript', function () {
     .pipe(buffer())
         .pipe(uglify())
         .on('error', gutil.log)
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest('./dist/'))
+    .pipe(notify({ message: 'JavaScript minified'}));
 });
 
-gulp.task('styles', function () {
+gulp.task('styles', ['clean'], function () {
   return sass('./sass/styles.scss', { style: 'expanded' })
     .pipe(gulp.dest('./dist/css'))
-    .pipe(notify({ message: 'Styles task complete' }));
+    .pipe(notify({ message: 'SASS preprocessed' }));
 });
 
 gulp.task('clean', function () {
@@ -45,7 +46,8 @@ gulp.task('qunit', function () {
     .pipe(source('./test/tests.js'))
     .pipe(buffer())
         .on('error', gutil.log)
-    .pipe(gulp.dest('./qunitest/'));
+    .pipe(gulp.dest('./qunit/'))
+    .pipe(notify({ message: 'QUnit tests passed'}));
 });
 
 gulp.task('watch', function () {
@@ -56,6 +58,10 @@ gulp.task('watch', function () {
   // Watch .js files
   gulp.watch('./scripts/*.js', ['javascript']);
 
-  // Watch qunit tests
+  // Watch test tests
   gulp.watch('./test/*.js', ['qunit']);
 });
+
+gulp.task('build', ['javascript', 'styles']);
+
+gulp.task('default', ['build']);
