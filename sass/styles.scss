@@ -364,6 +364,7 @@ body {
 
     img {
       width: 90%;
+      max-height: 100px;
 
       @media #{$phone-breakpoint} {
         position: fixed;
