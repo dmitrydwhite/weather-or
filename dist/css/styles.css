@@ -348,6 +348,7 @@ body {
 }
 .container .attribution img {
   width: 90%;
+  max-height: 100px;
 }
 @media (min-width: 720px) {
   .container .attribution img {
