@@ -91,14 +91,14 @@ Q.test( 'initListeners should set a change listener on allInputs ', function (as
 
   weatherTest.initListeners();
 
-  $(markupFixtures.lowerInput).click();
-  $(markupFixtures.allInputs).trigger('change');
-  $(markupFixtures.clearButton).click();
+  // $(markupFixtures.lowerInput).click();
+  // $(markupFixtures.allInputs).trigger('change');
+  // $(markupFixtures.clearButton).click();
 
   assert.ok(proxySpy.calledWith(weatherTest.handleInputChange), 'input change passed');
   assert.ok(proxySpy.calledWith(weatherTest.manageInputEntry), 'input entry passed');
   assert.ok(proxySpy.calledWith(weatherTest.clearData), 'clear button click passed');
-  assert.ok(proxySpy.args.length === 3, 'three calls to proxy passed');
+  assert.ok(proxySpy.args.length === 4, 'four calls to proxy passed');
   emptyFxt();
 });
 

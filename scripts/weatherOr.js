@@ -2,6 +2,7 @@ module.exports = function App () {
 
   var WUAPI = require('./weather-underground-api.js');
   var roundto = require('round-to');
+  var konami = require('./weather-or-konami');
 
   return {
     /* These are two containers to store our results in */
@@ -40,6 +41,7 @@ module.exports = function App () {
       this.allInputs.on('change', $.proxy(this.handleInputChange, this));
       this.allInputs.on('keyup', $.proxy(this.manageInputEntry, this));
       this.$clearButton.on('click touch', $.proxy(this.clearData, this));
+      konami().listen(this.viewTestPage);
     },  
 
     /**
@@ -275,6 +277,10 @@ module.exports = function App () {
       } else {
         this.clearErrors();
       }
+    },
+
+    viewTestPage: function () {
+      $('.container').find('.header-wrapper h1').append('<a href="./test/test.html">test page</a>');
     }
   };
 }
