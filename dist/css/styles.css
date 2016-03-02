@@ -46,6 +46,9 @@ body {
   font-size: 2.75rem;
   font-weight: 300;
 }
+.container .header-wrapper h1 a {
+  font-size: small;
+}
 .container .instructable {
   color: #157e96;
   width: 100%;
