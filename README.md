@@ -19,7 +19,7 @@ A single-page client-side AJAX app to compare weather in two locations.  Availab
 * `gulp` or `gulp build` to build the project and open in browser window
 * `gulp watch` will build, then monitor styles, scripts, and tests for development work
 * `gulp test` will compile tests and open the test runner in a browser window
-* To get access to running and viewing the QUnit tests from either a local version of the project or the live page, enter the Konami Code for funzies, or just go [here](http://dmitrydwhite.github.io/tests/test.html)
+* To get access to running and viewing the QUnit tests from either a local version of the project or the live page, enter the Konami Code for funzies, or just go [here](http://dmitrydwhite.github.io/weather-or/test/test.html)
 
 ##### My Build Process (Mostly for me to remember when I go back to working on this after a little while)
 * Go ahead and `gulp clean` just to clear out any weird stuff that's hanging around
